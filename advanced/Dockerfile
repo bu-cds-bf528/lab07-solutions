@@ -1,15 +1,15 @@
-FROM mambaorg/micromamba:latest
+# Don't change this
+FROM continuumio/miniconda3
 
-COPY --chown=$MAMBA_USER:$MAMBA_USER fastqc_env.yml /fastqc_env.yml
+# Or this
+WORKDIR /app
 
-RUN micromamba install -y -n base -f /fastqc_env.yml && micromamba clean --all --yes
+# Add your code here to make it work
 
-USER root
 
-# required for nextflow trace
-RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
+# Don't change this either (need to activate environment and add it to path)
+RUN echo "source activate fastqc" > ~/.bashrc
+ENV PATH=/opt/conda/envs/fastqc/bin:$PATH
 
-USER $MAMBA_USER
-
-# just exec things causing problems, not a great fix
-ENV PATH "$MAMBA_ROOT_PREFIX/bin:$PATH"
+# Add CMD here
+CMD
