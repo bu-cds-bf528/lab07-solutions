@@ -24,10 +24,9 @@ After you accept the github classroom link, please go directly to the github
 repository and click on the large green `code` button. Switch tabs and open a 
 codespace. 
 
-
 ## Creating a simple Docker image and container
 
-If you navigate to the simple_with_errors/ directory, you'll notice that we have three
+If you navigate to the simple/ directory, you'll notice that we have three
 files: a Dockerfile, a requirements.txt, and a genome fasta file. 
 
 Briefly take a look at each file, based on the lecture, you should be able to get a rough
@@ -47,7 +46,7 @@ Upon completion, you should be able to see your docker image if you use the foll
 docker images
 ```
 
-Take note of th difference between REPOSITORY and TAG as well as the size of the created
+Take note of the difference between REPOSITORY and TAG as well as the size of the created
 image.
 
 ## Running a container from this image
@@ -79,11 +78,11 @@ Dockerfile.
 
 ## A slightly more advanced version
 
-Navigate to the advanced/ directory and use what we've just done, LLMs, or the internet,
-and try to complete the files in this directory to build an image with FastQC, create containers,
+1. Navigate to the advanced/ directory and use what we've just done, LLMs, or the internet,
+and try to complete the files in this directory to build an image with FastQC, create a container from it,
 and run fastqc on the provided fastq. 
 
-Once you've successfully completed the Dockerfile, recall that containers are isolated and by default
+2. Once you've successfully completed the Dockerfile, recall that containers are isolated and by default
 store any files non-persistently inside the container unless otherwise specified. We will quickly
 explore one way you could persist files from a docker container by using a bind-mount. 
 
@@ -109,7 +108,7 @@ your own. We'll go through it together and talk about the specific consideration
 
 ## Commonly used commands
 
-docker build -t
+docker build -t <image_tag> .
 
 docker run --name
 
