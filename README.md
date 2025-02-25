@@ -106,6 +106,7 @@ at the files contained within.
 These are how the containers we use for this class were built. Try to understand the purpose of each line on
 your own. We'll go through it together and talk about the specific considerations that were necessary. 
 
+
 ## Commonly used commands
 
 docker build -t <image_tag> .
@@ -118,4 +119,4 @@ docker rm
 
 docker images
 
-docker run -it
+docker run -it bin/bash/

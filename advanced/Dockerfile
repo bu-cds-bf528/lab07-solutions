@@ -8,7 +8,7 @@ WORKDIR /app
 # You will need to make the YML file and fq file available in the container
 
 
-# You will then need to create a conda environment
+# You will then need to create a conda environment with the correct name
 
 
 # Don't change this either (need to activate environment and add it to path)
