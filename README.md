@@ -74,13 +74,17 @@ docker run -it python_script bash
 Use the `ls` command and take note of what files are present. Try to open a python 
 interpreter and `import Bio`. This is the environment that your container created and
 you should have access to the same files you copied and the tools you installed in the
-Dockerfile.
+Dockerfile. You may exit the container using `exit`.
 
 ## A slightly more advanced version
 
 1. Navigate to the advanced/ directory and use what we've just done, LLMs, or the internet,
 and try to complete the files in this directory to build an image with FastQC, create a container from it,
 and run fastqc on the provided fastq. 
+
+    - Ensure that your YML file specifies the correct name for the environment
+    - The command to create an environment from a file is `conda env create -f <yml_file>`
+    - You will need to build the image first as you did before. 
 
 2. Once you've successfully completed the Dockerfile, recall that containers are isolated and by default
 store any files non-persistently inside the container unless otherwise specified. We will quickly
