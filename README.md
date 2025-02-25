@@ -26,13 +26,78 @@ codespace.
 
 ## Basic Docker Commands
 
+
+### Pulling an image
 We are going to demonstrate how docker can help us install and run different
 versions of python. First, go to [docker hub](https://hub.docker.com) and search
 for python in the search bar at the top. The first search result should be the
 official python docker image. Click on it to go to the python docker image
-page.
+page. Look for the `docker pull` command on the right of the page. Copy it
+and run it in your codespace terminal.
 
+```
+docker pull python
+```
 
+Use the `docker images` command to view the images you have available on your system.
+
+```
+docker images
+```
+
+What version of python is installed? Can you tell from the output of the `docker
+images` command? (Hint: no, you can't)
+
+To find out what version of python is installed, you can use the `docker run`
+command to start a container from the image and then open a bash shell to
+interact with the container.
+
+```
+docker run -it python bash
+```
+
+This will start a container from the python image and open a bash shell to
+interact with the container. You can then use the `python --version` command
+to see what version of python is installed.
+
+```
+python --version
+```
+
+What version of python is installed?
+
+When you are done, you can exit the container by typing `exit` and pressing enter.
+
+### Pulling a specific version of an image
+
+Back on the docker hub python image page, scroll down to the **Shared Tags**
+section. This section lists the different versions of the python docker image
+that are available.
+
+Pull a specific version of the python docker image. Pick whatever version you
+want, but make sure it's not the `latest` tag.
+
+```
+docker pull python:<version>
+```
+
+Use the `docker images` command to view the images you have available on your system.
+
+```
+docker images
+```
+
+Try creating a container from the specific version of the python image you pulled,
+similar to how we did it for the `latest` version above, and then run the `python
+--version` command to see what version of python is installed.
+
+```
+docker run -it python:<version> bash
+```
+
+What version of python is installed?
+
+When you are done, you can exit the container by typing `exit` and pressing enter.
 
 ## Creating a simple Docker image and container
 
