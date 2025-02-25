@@ -24,6 +24,12 @@ After you accept the github classroom link, please go directly to the github
 repository and click on the large green `code` button. Switch tabs and open a 
 codespace. 
 
+## Basic Docker Commands
+
+We are going to demonstrate how docker can help us install and run different
+versions of python. First, go to [docker hub](https://hub.docker.com) and search
+for python in the search bar at the top.
+
 ## Creating a simple Docker image and container
 
 If you navigate to the simple/ directory, you'll notice that we have three
