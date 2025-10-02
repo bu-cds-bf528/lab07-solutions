@@ -32,8 +32,7 @@ We are going to demonstrate how docker can help us install and run different
 versions of python. First, go to [docker hub](https://hub.docker.com) and search
 for python in the search bar at the top. The first search result should be the
 official python docker image. Click on it to go to the python docker image
-page. Look for the `docker pull` command on the right of the page. Copy it
-and run it in your codespace terminal.
+page. For now, run the following command in your terminal:
 
 ```
 docker pull python
@@ -157,18 +156,32 @@ Dockerfile. You may exit the container using `exit`.
 and try to complete the files in this directory to build an image with FastQC, create a container from it,
 and run fastqc on the provided fastq. 
 
-    - Ensure that your YML file specifies the correct name for the environment
+    - Ensure that your YML file specifies the correct name for the environment - fastqc_env
     - The command to create an environment from a file is `conda env create -f <yml_file>`
     - You will need to build the image first as you did before. 
 
-2. Once you've successfully completed the Dockerfile, recall that containers are isolated and by default
+Build the image using the following command:
+
+```
+docker build -t fastqc_container:latest .
+```
+
+2. Try running your container once:
+
+```
+docker run --name fastqc fastqc_container
+```
+
+Observe what happens? Does it run? Where is the output?
+
+3. Once you've successfully done above, recall that containers are isolated and by default
 store any files non-persistently inside the container unless otherwise specified. We will quickly
 explore one way you could persist files from a docker container by using a bind-mount. 
 
 Add the following flag to your docker run command for this new container:
 
 ```
---volume $(pwd):/app
+docker run --volume $(pwd):/app --name fastqc2 fastqc_container
 ```
 
 This will enable you to create files in the container and persist the files onto the host filesystem. In 
