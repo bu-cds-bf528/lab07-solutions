@@ -69,12 +69,13 @@ When you are done, you can exit the container by typing `exit` and pressing ente
 
 ### Pulling a specific version of an image
 
-Back on the docker hub python image page, scroll down to the **Shared Tags**
-section. This section lists the different versions of the python docker image
-that are available.
+Back on the docker hub python image page, look at the right side of the page for
+the "Tag summary" section. Use the dropdown menu to select a version of python that
+is not the `latest` and has `slim` in the tag name. 
 
-Pull a specific version of the python docker image. Pick whatever version you
-want, but make sure it's not the `latest` tag.
+Find the blue button that says "Run in Docker Desktop" and click on the three dots
+next to it. Copy the command that appears in the pop-up. It will look something
+like below:
 
 ```
 docker pull python:<version>
@@ -174,9 +175,12 @@ docker run --name fastqc fastqc_container
 
 Observe what happens? Does it run? Where is the output?
 
-3. Once you've successfully done above, recall that containers are isolated and by default
-store any files non-persistently inside the container unless otherwise specified. We will quickly
-explore one way you could persist files from a docker container by using a bind-mount. 
+Recall that containers are isolated and by default store any files non-persistently
+inside the container unless otherwise specified. When a container is destroyed, 
+any files inside will also be lost. Typically speaking, we will want to persist 
+files from a docker container to a more permanent location. One way of accomplishing 
+this is by using a bind-mount, which will connect the host filesystem to the container 
+filesystem and allow for various read / write operations.
 
 Add the following flag to your docker run command for this new container:
 
@@ -188,7 +192,41 @@ This will enable you to create files in the container and persist the files onto
 this case, you can see that we are binding the present working directory on the host to the /app directory
 inside the container where FastQC is running and producing its outputs. 
 
-After you run this command, you should now see the outputs of FastQC appear in your current directory. 
+After you run this command, you should now see the outputs of FastQC appear in your current directory.
+Prior to this, those files would have existed in the container and would have been deleted when the container 
+exited.  
+
+## Managing your images and containers
+
+Remember that you can use the `docker images` command to view all the images you have available on your system.
+
+### Images
+
+```
+docker images
+```
+
+To remove an image, you can use the `docker rmi` command.
+
+```
+docker rmi <image_name / container ID>
+```
+
+To remove an image, you will need to first remove any containers that are using it.
+
+You can also use the `docker ps -a` command to view all the containers you have available on your system.
+
+### Containers 
+
+```
+docker ps -a
+```
+
+To remove a container, you can use the `docker rm` command.
+
+```
+docker rm <container_name / container ID>
+```
 
 ## BF528 Containers
 
@@ -198,17 +236,62 @@ at the files contained within.
 These are how the containers we use for this class were built. Try to understand the purpose of each line on
 your own. We'll go through it together and talk about the specific considerations that were necessary. 
 
+## Extra - Creating your own Dockerfile and hosting it on GitHub Container Registry
+
+You do not need to do this (you will not be doing this for our class), but you 
+can follow these steps if you are interested in learning how to create and host
+your own docker images. 
+
+If you've managed to do everything before this, you can try to create your own
+Docker image, push it to GitHub Container Registry, and pull it from GitHub Container Registry.
+
+When you've used docker images in your nextflow pipelines, container 'ghcr.io/bf528/<container_name>:latest', you've been using the GitHub Container Registry to pull images that I pre-built for you. The GitHub Container Registry is very similar to the Docker Hub and
+is meant to host docker images for public and private use. 
+
+When you've run nextflow with the `-profile singularity` flag, you were instructing
+nextflow to pull these docker images and use singularity to create containers with them
+for your processes. 
+
+I will describe the process of creating a docker image and pushing it to the GitHub Container Registry in general and point you to additional resources as the process is a bit involved. 
+
+1. Create a Github Repository and commit/push the Dockerfile and any other files
+needed to build the image.
+
+2. Actually [build](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#building-container-images) the image
+
+3. [Sign into](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic) the GitHub Container Registry
+
+3. [Push the image](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#pushing-container-images)
+
+4. [Change the package visibility](https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)
+
+5. [Pull the image](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#pulling-container-images)
+
+6. Optional: [Associate the package with a repository](https://docs.github.com/en/packages/learn-github-packages/connecting-a-repository-to-a-package)
 
 ## Commonly used commands
 
+### Building an image
 docker build -t <image_tag> .
 
-docker run --name
+### Running a container from an image
+docker run --name <container_name> <image_name>
 
+### Listing all containers
 docker ps -a
 
-docker rm
+### Removing a container
+docker rm <container_name>
 
+### Listing all images
 docker images
 
-docker run -it bin/bash/
+### Removing an image
+docker rmi <image_name>
+
+### Running a container interactively - (-i | --interactive) and (-t | --tty)
+docker run -it /bin/bash
+
+From the Docker documentation: The -i flag is most often used together with the 
+-t flag to bind the I/O streams of the container to a pseudo terminal, creating 
+an interactive terminal session for the container
