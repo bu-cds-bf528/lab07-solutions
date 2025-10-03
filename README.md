@@ -253,6 +253,7 @@ nextflow to pull these docker images and use singularity to create containers wi
 for your processes. 
 
 I will describe the process of creating a docker image and pushing it to the GitHub Container Registry in general and point you to additional resources as the process is a bit involved. 
+You can host GitHub Container Registry images using your organization (your username)
 
 1. Create a Github Repository and commit/push the Dockerfile and any other files
 needed to build the image.
