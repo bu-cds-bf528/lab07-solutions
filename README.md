@@ -157,7 +157,8 @@ Dockerfile. You may exit the container using `exit`.
 and try to complete the files in this directory to build an image with FastQC, create a container from it,
 and run fastqc on the provided fastq. 
 
-    - Ensure that your YML file specifies the correct name for the environment - fastqc_env
+    - Ensure that your YML file specifies the correct name for the environment - `fastqc_env`
+    - Create this YML file just as you've done for the other tools in this course
     - The command to create an environment from a file is `conda env create -f <yml_file>`
     - You will need to build the image first as you did before. 
 
