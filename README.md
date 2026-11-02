@@ -1,4 +1,4 @@
-# Lab 05 - Docker
+# Lab 07 - Docker
 
 ## Objectives
 
